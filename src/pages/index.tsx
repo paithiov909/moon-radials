@@ -1,12 +1,15 @@
 import { Head } from "minista"
+import Radials from "../components/radials?ph"
 
 export default function () {
   return (
     <>
       <Head>
-        <title>Hello!</title>
+        <title>Hello WebR!</title>
       </Head>
-      <h1>Hello!</h1>
+      <div>
+        <Radials />
+      </div>
     </>
   )
 }

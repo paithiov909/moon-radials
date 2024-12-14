@@ -1,0 +1,12 @@
+@unocss preflights;
+@unocss default;
+
+@unocss;
+
+body {
+  background-image: linear-gradient(to bottom, rgba(145, 175, 175, 1), rgba(188, 146, 166, 1));;
+}
+
+button {
+  pointer-events: auto;
+}

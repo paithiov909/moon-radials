@@ -1,8 +1,0 @@
-{
-	"name": "WebR",
-	"image": "ghcr.io/r-wasm/webr:v0.4.2",
-
-	"mounts": [
-		"type=volume,target=${containerWorkspaceFolder}/node_modules"
-	]
-}

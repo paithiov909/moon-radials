@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello WebR!</title>
+    <link rel="stylesheet" href="assets/bundle.css">
+    <script type="module" src="assets/hydrate.js"></script>
+  </head>
+  <body>
+    <div>
+      <div data-partial-hydration="ph-1" style="display:contents">
+        <div class="container mx-auto rounded-md bg-pink-200">
+          <div class="grid place-content-around">
+            <label for="power" class="mb-2 text-sm font-medium text-gray-900 dark:text-white">Param for filter effect</label>
+            <input id="power" class="h-2 bg-white rounded-lg appearance-none cursor-pointer" type="range" min="0" max="6" step="1">
+            <button type="button" title="This will be clickable when WebR is initialized!" class="rounded-md bg-white my-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" disabled="">Draw aRtsy</button>
+          </div>
+          <div class="bg-slate-800"></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
