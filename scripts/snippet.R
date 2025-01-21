@@ -77,14 +77,14 @@ plot_spirals <- function() {
   return(anim)
 }
 
-anim <- plot_spirals()
-gganimate::animate(
-  anim,
-  nframes = 90,
-  fps = 30,
-  width = 640,
-  height = 480,
-  units = "px",
-  device = "png",
-  renderer = gganimate::file_renderer("./public", overwrite = TRUE)
-)
+# anim <- plot_spirals()
+# gganimate::animate(
+#   anim,
+#   nframes = 90,
+#   fps = 30,
+#   width = 640,
+#   height = 480,
+#   units = "px",
+#   device = "png",
+#   renderer = gganimate::file_renderer("./public", overwrite = TRUE)
+# )

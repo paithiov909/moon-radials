@@ -2,9 +2,6 @@
 import "zx/globals"
 import { WebR } from "webr"
 
-echo("Cleaning public directory...")
-await fs.remove(`${path.resolve(__dirname, "../public/*")}`)
-
 const webR = new WebR()
 
 await spinner("Initializing webR...", async () => {
