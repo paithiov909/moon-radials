@@ -5,21 +5,33 @@
   "scripts": {
     "dev": "minista",
     "build": "minista build",
-    "preview": "minista preview"
+    "preview": "minista preview",
+    "remotion:dev": "remotion studio",
+    "remotion:build": "remotion bundle",
+    "lint": "eslint src --ext ts,tsx,js,jsx && tsc"
   },
   "prettier": {
     "semi": false
   },
-  "devDependencies": {
-    "@types/react": "^18.2.16",
-    "@types/react-dom": "^18.2.7",
-    "@unocss/postcss": "^0.65.1",
-    "minista": "^3.1.7",
+  "dependencies": {
+    "@remotion/cli": "4.0.235",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-konva": "^18.2.10",
+    "remotion": "4.0.235"
+  },
+  "devDependencies": {
+    "@remotion/eslint-config": "4.0.235",
+    "@types/react": "^18.2.16",
+    "@types/react-dom": "^18.2.7",
+    "@types/web": "0.0.166",
+    "@unocss/postcss": "^0.65.1",
+    "eslint": "8.57.1",
+    "minista": "^3.1.7",
+    "prettier": "3.3.3",
     "typescript": "^5.1.6",
     "unocss": "^0.65.1",
-    "webr": "0.4.2"
+    "webr": "0.4.2",
+    "zx": "^8.3.0"
   }
 }
