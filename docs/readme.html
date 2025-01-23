@@ -18,12 +18,13 @@
           <ul>
             <li>WebRってこんなの、みたいな大雑把な話</li>
             <li>npmパッケージとしてのWebRをどんな感じで使うか</li>
-            <li>実際に使っているようすを見せる</li>
+            <li>実際にGitHub Codespacesの中で使っているようすを見せる</li>
+            <li>具体的にどうやって使うかは説明しません</li>
           </ul>
           <h2>1. <a href="https://docs.r-wasm.org/webr/latest/">WebR</a> is 何？</h2>
           <ul>
             <li>
-              <p>WebR👈ブラウザで動くR？</p>
+              <p>WebR👈「ブラウザで動くR」と紹介されがち？</p>
               <ul>
                 <li>
                   <a href="https://zenn.dev/eitsupi/articles/webr-is-2023">ブラウザで動くR、WebRが熱い！</a>
@@ -34,19 +35,20 @@
               </ul>
             </li>
             <li>
-              <p>実際にWebブラウザで試せるデモとして、簡易的な<a href="https://webr.r-wasm.org/latest/">REPL</a>が用意されている</p>
+              <p>公式サイトにもたしかに R in the Browser と書かれている</p>
               <ul>
-                <li>公式サイトにもたしかに R in the Browser と書かれている</li>
-                <li>そうなんだけど、そういうものと期待してしまうとけっこう不便<!-- -->
-                  <ul>
-                    <li>外部のライブラリに依存するRパッケージには動かせないものがある</li>
-                    <li>Webページに埋め込んで使う場合、アクセスするたびごとに、使いたいRパッケージをアセットとしてダウンロードしてくる必要がある</li>
-                  </ul>
-                </li>
+                <li>実際にWebブラウザで試せるデモとして、簡易的な<a href="https://webr.r-wasm.org/latest/">REPL</a>が用意されている</li>
               </ul>
             </li>
             <li>
-              <p>次のようにも書かれている</p>
+              <p>そうなんだけど、ブラウザさえあれば動くRStudioみたいなものと期待してしまうと不便</p>
+              <ul>
+                <li>外部のライブラリに依存するRパッケージには動かせないものがある</li>
+                <li>Webページに埋め込んで使う場合、アクセスするたびごとに、使いたいRパッケージなどをダウンロードしてくる必要がある</li>
+              </ul>
+            </li>
+            <li>
+              <p>じゃあこれは何がそんなにすごいのか？</p>
             </li>
           </ul>
           <blockquote>
@@ -56,7 +58,7 @@
           <ul>
             <li>たぶん <strong>without the need for an R server to execute the code</strong> の部分が重要<!-- -->
               <ul>
-                <li>Rコードを実行するのにwasmを実行できる環境さえあればOKになった、というのが非常に偉い</li>
+                <li>「ブラウザでRが動く」というより、むしろ「Rコードを実行するのにRが必要ない（wasmを実行できればOK）」というのがポイント</li>
                 <li>つまり「Rはインストールされていないが、Node.jsならある」みたいな環境で、Rコードを動かすことができるようになったということ</li>
                 <li>すでに、WebRをバンドルすることでオフラインでもRコードを評価できるようにしたスマホアプリの事例が出てきていたりと、なかなか夢がある（<a href="https://x.com/_ColinFay/status/1869393532383043594">参考</a>）</li>
               </ul>
@@ -64,7 +66,7 @@
           </ul>
           <h2>2. WebR as an npm package</h2>
           <ul>
-            <li>一般的には<a href="https://github.com/quarto-ext/shinylive">shinylive</a>やQuartoの拡張機能などを利用して、静的なWebページに埋め込んで使う<!-- -->
+            <li>一般的には<a href="https://github.com/posit-dev/r-shinylive">shinylive</a>やQuartoの拡張機能などを利用して、静的なWebページに埋め込んで使う<!-- -->
               <ul>
                 <li>shinyliveは、shinyアプリを動く状態を保ったまま手軽にアーカイブしておくのに便利<!-- -->
                   <ul>
@@ -73,7 +75,7 @@
                     </li>
                   </ul>
                 </li>
-                <li>Quartoの拡張機能としては、コードブロックをインタラクティブなデモにするのに使われる</li>
+                <li>Quartoの拡張機能としては、コードブロックをインタラクティブなデモにするのに使える</li>
               </ul>
             </li>
             <li>WebRそのものをJSのライブラリとして利用する場合、<a href="https://www.npmjs.com/package/webr">npmパッケージ</a>として扱う<!-- -->
@@ -86,7 +88,6 @@
           </ul>
           <blockquote>
             <p>The default location from which webR will load the WebAssembly R binaries depends on the execution environment. When running in a browser, webR will download binaries from CDN at start-up. If webR is running under Node.js, it will load binaries from the local module installation directory.</p>
-            <p>If required, this behaviour can be overridden by self-hosting the contents of a webR release package (or building from source) and providing an alternative base URL for the WebROptions.baseUrl configuration setting.</p>
           </blockquote>
           <ul>
             <li>使い方のイメージ：<a href="https://github.com/paithiov909/moon-radials/blob/main/src/components/radials.tsx">moon-radials/src/components/radials.tsx</a>
@@ -109,7 +110,7 @@
             <li>動作デモ：<a href="https://paithiov909.github.io/moon-radials/">Hello WebR!</a>
             </li>
           </ul>
-          <h2>3. Node.jsさえあれば動かせると何がうれしいの？</h2>
+          <h2>3. 「Rコードを実行するのにRが必要ない」と何がうれしいの？</h2>
           <ul>
             <li>たとえば、<strong>GitHub CodespacesのデフォルトのLinuxイメージ</strong>のなかでRコードを実行できる<!-- -->
               <ul>
@@ -129,7 +130,7 @@
               <ul>
                 <li>Rがほしい場合<a href="https://github.com/rocker-org/devcontainer-features">rocker-org/devcontainer-features</a>などを使って、Rが入っているコンテナをビルドする必要がある</li>
                 <li>でも、それだと起ち上げるのに時間がかかるし、このイメージはストレージについて課金されないらしいので、気軽に立てられる点でも魅力的</li>
-                <li>がっつりRのコードを書きたいわけではないケースだったら、このイメージの中でWebRを使っちゃえばいいのでは？</li>
+                <li>ちょっとしたRのコードを実行したいというだけなら、このイメージの中でWebRを使っちゃえばいいかも？</li>
               </ul>
             </li>
             <li>
@@ -157,10 +158,10 @@
               <p>書き出した画像ファイルを<a href="https://www.remotion.dev/">remotion</a>で動画にした</p>
             </li>
             <li>
-              <p>ポイントとして、<strong>実行したいRコードはあらかじめ準備しておく</strong>のがよい</p>
+              <p>WebRでRコードを実行する際のポイントとして、<strong>実行したいRコードはあらかじめ準備しておく</strong>のがよい</p>
               <ul>
                 <li>WebRしかない環境でRコードを書いてデバッグするのはとても難しい。ヘルプが読めないし、補完も効かないはず</li>
-                <li>Rコードはzxスクリプトにベタ書きせず、Rスクリプトとして分けておくほうが書きやすいし、管理もしやすい</li>
+                <li>Rコードはzxスクリプトにベタ書きせず、Rスクリプトとして分けておくほうが書きやすく、管理もしやすい</li>
               </ul>
             </li>
             <li>
@@ -168,7 +169,7 @@
               <ul>
                 <li>Rはggplot2による作図や、tidyverseによるテーブルデータの整形が得意</li>
                 <li>その他にも、Rにある実装を使うのが便利なロジックについてはWebRでの処理を選択肢にしやすい</li>
-                <li>すべてをRでやろうとすると破滅するので、Rにまかせる必要のない部分については、Node.jsなりPythonなりを使ったほうが楽</li>
+                <li>すべてをRでやろうとすると破滅するので、WebRにまかせる必要のない部分については、Node.jsなりPythonなりを使ったほうが楽</li>
               </ul>
             </li>
           </ul>
