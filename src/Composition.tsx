@@ -3,14 +3,12 @@ import {
   Img,
   staticFile,
   useCurrentFrame,
-  useVideoConfig,
   Easing,
   interpolate
 } from "remotion";
 
 export const MyComposition = () => {
   const frame = useCurrentFrame();
-  const { durationInFrames } = useVideoConfig();
 
   const curImage = interpolate(
     frame,
@@ -31,7 +29,7 @@ export const MyComposition = () => {
           color: "steelblue",
           textAlign: "center",
         }}>This animation was created<br />
-           with remotion and gganimate (using WebR🕸)</h3>
+           with remotion and gganimate (using WebR)</h3>
       </AbsoluteFill>
       <Img
         src={staticFile(imageName)}
