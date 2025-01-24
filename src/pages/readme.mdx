@@ -69,18 +69,17 @@ draft: false
 ## 3. 「Rコードを実行するのにRが必要ない」と何がうれしいの？
 
 - たとえば、**GitHub CodespacesのデフォルトのLinuxイメージ**で、RをインストールせずにRコードを実行できる
-  - Rが動く環境のセットアップは意外とめんどくさい
-  - WebRで実行するRコードの挙動はシステムライブラリに依存しないので、再現可能性も確保しやすい
-- このイメージについては[Introduction to dev containers - GitHub Docs](https://docs.github.com/en/codespaces/setting-up-your-project-for-codespaces/adding-a-dev-container-configuration/introduction-to-dev-containers#using-the-default-dev-container-configuration)に次のように書かれている
+  - このイメージについては[Introduction to dev containers - GitHub Docs](https://docs.github.com/en/codespaces/setting-up-your-project-for-codespaces/adding-a-dev-container-configuration/introduction-to-dev-containers#using-the-default-dev-container-configuration)に次のように書かれている
 
 > If you don't add a dev container configuration to your repository, or if your configuration does not specify a base image to use, then GitHub creates a container from a default Linux image. This Linux image includes a number of runtime versions for popular languages like Python, Node, PHP, Java, Go, C++, Ruby, and .NET Core/C#.
 
 > GitHub does not charge for storage of containers built from the default dev container image.
 
-- このイメージにはRはインストールされていないが、Node.jsはインストール済み
+- このイメージにはRはインストールされていないが、Rが動く環境のセットアップは意外とめんどくさい
   - Rがほしい場合[rocker-org/devcontainer-features](https://github.com/rocker-org/devcontainer-features)などを使って、Rが入っているコンテナをビルドする必要がある
   - でも、それだと起ち上げるのに時間がかかるし、このイメージはストレージについて課金されないらしいので、気軽に立てられる点でも魅力的
-  - ちょっとしたRのコードを実行したいというだけなら、このイメージの中でWebRを使っちゃえばいいかも？
+  - WebRで実行するRコードの挙動はシステムライブラリに依存しないので、（Rパッケージも固定すれば）再現可能性を確保しやすい説もある
+  - 書き捨てでないRコードを共有したいというシーンには、このイメージの中でWebRを使っちゃえばいいかも？
 
 - 実際にやってみせます
   - [paithiov909/moon-radials: An attempt to use WebR with React](https://github.com/paithiov909/moon-radials)
