@@ -75,11 +75,11 @@ draft: false
 
 > GitHub does not charge for storage of containers built from the default dev container image.
 
-- このイメージにはRはインストールされていないが、Rが動く環境のセットアップは意外とめんどくさい
+- このイメージにはRはインストールされていないのだが、Rが動く環境をセットアップするのはめんどくさかったりする
   - Rがほしい場合[rocker-org/devcontainer-features](https://github.com/rocker-org/devcontainer-features)などを使って、Rが入っているコンテナをビルドする必要がある
-  - でも、それだと起ち上げるのに時間がかかるし、このイメージはストレージについて課金されないらしいので、気軽に立てられる点でも魅力的
+  - でも、それだとコンテナを起ち上げるのに時間がかかるし、このイメージはストレージについて課金されないらしいので、気軽に立てられる点でも魅力的
   - WebRで実行するRコードの挙動はシステムライブラリに依存しないので、（Rパッケージも固定すれば）再現可能性を確保しやすい説もある
-  - 書き捨てでないRコードを共有したいというシーンには、このイメージの中でWebRを使っちゃえばいいかも？
+  - 書き捨てでないRコードを共有したいというシーンにおいては、このイメージの中でWebRを使っちゃえばいいかも？
 
 - 実際にやってみせます
   - [paithiov909/moon-radials: An attempt to use WebR with React](https://github.com/paithiov909/moon-radials)
