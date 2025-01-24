@@ -5,7 +5,7 @@ to <- 20
 perc <- 0.3
 bg_value <- 500
 limit <- 50
-max_size <- 20
+max_size <- 12
 col_palette <- c("#413C58", "#D1495B", "#EDAE49", "#00798C", "#003D5B")
 highlight_col <- "white"
 bg_col <- "transparent"

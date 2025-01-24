@@ -37,7 +37,7 @@ draft: false
 
 - たぶん **without the need for an R server to execute the code** の部分が重要
   - 「ブラウザでRが動く」というより、むしろ「Rコードを実行するのにRが必要ない（wasmを実行できればOK）」というのがポイント
-  - つまり「Rはインストールされていないが、Node.jsならある」みたいな環境で、Rコードを動かすことができるようになったということ
+  - ブラウザやNode.jsさえあれば、Rに依存せずにRコードを動かすことができる時代が訪れつつある
   - すでに、WebRをバンドルすることでオフラインでもRコードを評価できるようにしたスマホアプリの事例が出てきていたりと、なかなか夢がある（[参考](https://x.com/_ColinFay/status/1869393532383043594)）
 
 
@@ -46,6 +46,7 @@ draft: false
 - 一般的には[shinylive](https://github.com/posit-dev/r-shinylive)やQuartoの拡張機能などを利用して、静的なWebページに埋め込んで使う
   - shinyliveは、shinyアプリを動く状態を保ったまま手軽にアーカイブしておくのに便利
     - [Wasm で再現可能性を担保するツールとしての Shinylive - Technically, technophobic.](https://notchained.hatenablog.com/entry/2024/12/12/111041)
+    - [Reproducible data science with webR and Shinylive | George Stagg | Posit - YouTube](https://www.youtube.com/watch?v=wK3vPbcSoFE)
   - Quartoの拡張機能としては、コードブロックをインタラクティブなデモにするのに使える
 - WebRそのものをJSのライブラリとして利用する場合、[npmパッケージ](https://www.npmjs.com/package/webr)として扱う
   - CDNからmjsをインポートして使うこともできる（HTMLを直に書くときとかに使いそう？）
@@ -67,8 +68,10 @@ draft: false
 
 ## 3. 「Rコードを実行するのにRが必要ない」と何がうれしいの？
 
-- たとえば、**GitHub CodespacesのデフォルトのLinuxイメージ**のなかでRコードを実行できる
-  - このイメージについては[Introduction to dev containers - GitHub Docs](https://docs.github.com/en/codespaces/setting-up-your-project-for-codespaces/adding-a-dev-container-configuration/introduction-to-dev-containers#using-the-default-dev-container-configuration)に次のように書かれている
+- たとえば、**GitHub CodespacesのデフォルトのLinuxイメージ**で、RをインストールせずにRコードを実行できる
+  - Rが動く環境のセットアップは意外とめんどくさい
+  - WebRで実行するRコードの挙動はシステムライブラリに依存しないので、再現可能性も確保しやすい
+- このイメージについては[Introduction to dev containers - GitHub Docs](https://docs.github.com/en/codespaces/setting-up-your-project-for-codespaces/adding-a-dev-container-configuration/introduction-to-dev-containers#using-the-default-dev-container-configuration)に次のように書かれている
 
 > If you don't add a dev container configuration to your repository, or if your configuration does not specify a base image to use, then GitHub creates a container from a default Linux image. This Linux image includes a number of runtime versions for popular languages like Python, Node, PHP, Java, Go, C++, Ruby, and .NET Core/C#.
 
@@ -91,16 +94,19 @@ draft: false
   - [gganimate](https://gganimate.com/)の`file_renderer()`を使って、webRにマウントしたディレクトリの中に画像ファイルをまとめて書き出した
 - 書き出した画像ファイルを[remotion](https://www.remotion.dev/)で動画にした
 
-- WebRでRコードを実行する際のポイントとして、**実行したいRコードはあらかじめ準備しておく**のがよい
+
+## 5. WebRでRコードを実行する際のポイント
+
+- **実行したいRコードはあらかじめ準備しておく**のがよい
   - WebRしかない環境でRコードを書いてデバッグするのはとても難しい。ヘルプが読めないし、補完も効かないはず
-  - Rコードはzxスクリプトにベタ書きせず、Rスクリプトとして分けておくほうが書きやすく、管理もしやすい
+  - RコードはJSのスクリプトにベタ書きせず、Rのスクリプトとして分けておくほうが書きやすいし、管理もしやすい
 - 「**すべてをRでやろうとはしない**」ほうが、Rの便利さを活かしやすい
   - Rはggplot2による作図や、tidyverseによるテーブルデータの整形が得意
   - その他にも、Rにある実装を使うのが便利なロジックについてはWebRでの処理を選択肢にしやすい
-  - すべてをRでやろうとすると破滅するので、WebRにまかせる必要のない部分については、Node.jsなりPythonなりを使ったほうが楽
+  - 実現したいことのすべてをRでやろうとすると破滅するので、WebRにまかせる必要のない部分についてはJSなどを使ったほうが楽
 
 
-## 5. まとめ
+## 6. まとめ
 
 - WebRの登場によって、Rコードを実行するのにwasmを実行できる環境さえあればOKになった
 - 用途にあわせて賢くWebRを活用しよう

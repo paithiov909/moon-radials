@@ -59,7 +59,7 @@
             <li>たぶん <strong>without the need for an R server to execute the code</strong> の部分が重要<!-- -->
               <ul>
                 <li>「ブラウザでRが動く」というより、むしろ「Rコードを実行するのにRが必要ない（wasmを実行できればOK）」というのがポイント</li>
-                <li>つまり「Rはインストールされていないが、Node.jsならある」みたいな環境で、Rコードを動かすことができるようになったということ</li>
+                <li>ブラウザやNode.jsさえあれば、Rに依存せずにRコードを動かすことができる時代が訪れつつある</li>
                 <li>すでに、WebRをバンドルすることでオフラインでもRコードを評価できるようにしたスマホアプリの事例が出てきていたりと、なかなか夢がある（<a href="https://x.com/_ColinFay/status/1869393532383043594">参考</a>）</li>
               </ul>
             </li>
@@ -72,6 +72,9 @@
                   <ul>
                     <li>
                       <a href="https://notchained.hatenablog.com/entry/2024/12/12/111041">Wasm で再現可能性を担保するツールとしての Shinylive - Technically, technophobic.</a>
+                    </li>
+                    <li>
+                      <a href="https://www.youtube.com/watch?v=wK3vPbcSoFE">Reproducible data science with webR and Shinylive | George Stagg | Posit - YouTube</a>
                     </li>
                   </ul>
                 </li>
@@ -112,11 +115,13 @@
           </ul>
           <h2>3. 「Rコードを実行するのにRが必要ない」と何がうれしいの？</h2>
           <ul>
-            <li>たとえば、<strong>GitHub CodespacesのデフォルトのLinuxイメージ</strong>のなかでRコードを実行できる<!-- -->
+            <li>たとえば、<strong>GitHub CodespacesのデフォルトのLinuxイメージ</strong>で、RをインストールせずにRコードを実行できる<!-- -->
               <ul>
-                <li>このイメージについては<a href="https://docs.github.com/en/codespaces/setting-up-your-project-for-codespaces/adding-a-dev-container-configuration/introduction-to-dev-containers#using-the-default-dev-container-configuration">Introduction to dev containers - GitHub Docs</a>に次のように書かれている</li>
+                <li>Rが動く環境のセットアップは意外とめんどくさい</li>
+                <li>WebRで実行するRコードの挙動はシステムライブラリに依存しないので、再現可能性も確保しやすい</li>
               </ul>
             </li>
+            <li>このイメージについては<a href="https://docs.github.com/en/codespaces/setting-up-your-project-for-codespaces/adding-a-dev-container-configuration/introduction-to-dev-containers#using-the-default-dev-container-configuration">Introduction to dev containers - GitHub Docs</a>に次のように書かれている</li>
           </ul>
           <blockquote>
             <p>If you don&#x27;t add a dev container configuration to your repository, or if your configuration does not specify a base image to use, then GitHub creates a container from a default Linux image. This Linux image includes a number of runtime versions for popular languages like Python, Node, PHP, Java, Go, C++, Ruby, and .NET Core/C#.</p>
@@ -144,8 +149,7 @@
           </ul>
           <h2>4. やっていたこと</h2>
           <ul>
-            <li>
-              <p>WebRを使ってRのコードを実行して、90枚の画像ファイルを生成</p>
+            <li>WebRを使ってRのコードを実行して、90枚の画像ファイルを生成<!-- -->
               <ul>
                 <li>JSのスクリプトを書くのには<a href="https://google.github.io/zx/">google/zx</a>というライブラリを使った</li>
                 <li>画像を生成するRコードは<a href="https://github.com/nrennie/aRt">nrennie/aRt</a>のRコードを元に改変したもの</li>
@@ -154,26 +158,25 @@
                 </li>
               </ul>
             </li>
-            <li>
-              <p>書き出した画像ファイルを<a href="https://www.remotion.dev/">remotion</a>で動画にした</p>
-            </li>
-            <li>
-              <p>WebRでRコードを実行する際のポイントとして、<strong>実行したいRコードはあらかじめ準備しておく</strong>のがよい</p>
+            <li>書き出した画像ファイルを<a href="https://www.remotion.dev/">remotion</a>で動画にした</li>
+          </ul>
+          <h2>5. WebRでRコードを実行する際のポイント</h2>
+          <ul>
+            <li><strong>実行したいRコードはあらかじめ準備しておく</strong>のがよい<!-- -->
               <ul>
                 <li>WebRしかない環境でRコードを書いてデバッグするのはとても難しい。ヘルプが読めないし、補完も効かないはず</li>
-                <li>Rコードはzxスクリプトにベタ書きせず、Rスクリプトとして分けておくほうが書きやすく、管理もしやすい</li>
+                <li>RコードはJSのスクリプトにベタ書きせず、Rのスクリプトとして分けておくほうが書きやすいし、管理もしやすい</li>
               </ul>
             </li>
-            <li>
-              <p>「<strong>すべてをRでやろうとはしない</strong>」ほうが、Rの便利さを活かしやすい</p>
+            <li>「<strong>すべてをRでやろうとはしない</strong>」ほうが、Rの便利さを活かしやすい<!-- -->
               <ul>
                 <li>Rはggplot2による作図や、tidyverseによるテーブルデータの整形が得意</li>
                 <li>その他にも、Rにある実装を使うのが便利なロジックについてはWebRでの処理を選択肢にしやすい</li>
-                <li>すべてをRでやろうとすると破滅するので、WebRにまかせる必要のない部分については、Node.jsなりPythonなりを使ったほうが楽</li>
+                <li>実現したいことのすべてをRでやろうとすると破滅するので、WebRにまかせる必要のない部分についてはJSなどを使ったほうが楽</li>
               </ul>
             </li>
           </ul>
-          <h2>5. まとめ</h2>
+          <h2>6. まとめ</h2>
           <ul>
             <li>WebRの登場によって、Rコードを実行するのにwasmを実行できる環境さえあればOKになった</li>
             <li>用途にあわせて賢くWebRを活用しよう</li>
